@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+     <link rel="stylesheet" href="../static/css/style.css" media="all" />
+    <title>Template</title>
+</head>
+<body>
+<div class="head clearfix">
+      <div id="logo">
+        <img src="../static/image/logo.png"/>
+      </div>
+      <div id="company">
+        <h2 class="name" th:text="${facture.factureSign.companyName}"/>
+        <div th:text="${facture.factureSign.companyAddr}"/>
+        <div th:text="${facture.factureSign.companyPhone}"/>
+        <div><a href="mailto:company@example.com" th:text="${facture.factureSign.companyEmail}"/></div>
+      </div>
+</div>
+<div>
+      <div id="details" class="clearfix">
+        <div id="client">
+          <div class="to">INVOICE TO:</div>
+          <h2 class="name" th:text="${facture.devis.client.name}"/>
+          <div class="address" th:text="${facture.devis.client.address}"/>
+          <div class="email"><a href="mailto:john@example.com" th:text="${facture.devis.client.email}"/></div>
+        </div>
+        <div id="invoice">
+          <h1>INVOICE </h1>
+          <div class="date" th:text="${facture.devis.createDate}"/>
+          <div class="date"></div>
+        </div>
+      </div>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th class="no">#</th>
+            <th class="desc">DESCRIPTION</th>
+            <th class="unit">UNIT PRICE</th>
+            <th class="qty">QUANTITY</th>
+            <th class="total">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="p: ${facture.devis.products}">
+            <td class="no">01</td>
+            <td class="desc" th:text="${p.produit.nameP}"/>
+            <td class="unit" th:text="${p.produit.price}"/>
+            <td class="qty" th:text="${p.quantite}"/>
+            <td class="total" th:text="${p.quantite*p.produit.price}"/>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">SUBTOTAL</td>
+            <td th:text="${facture.devis.totalHT}"/>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">TAX <span th:text="${facture.devis.tva}"/>%</td>
+            <td th:text="${facture.devis.totalHT*(facture.devis.tva/100)}"/>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">GRAND TOTAL</td>
+            <td th:text="${facture.devis.totalTTC}"/>
+          </tr>
+        </tfoot>
+      </table>
+      <div id="thanks">Thank you!</div>
+      <div id="notices">
+        <div>NOTICE:</div>
+        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+      </div>
+</div>
+    <div class="foot">
+      Invoice was created on a computer and is valid without the signature and seal.
+    </div>
+</body>
+</html>
+
+
