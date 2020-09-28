@@ -36,9 +36,6 @@ public class User {
 	private boolean active;
 	public User() {
 	}
-	 
-	
-
 	public User(String name, String email, String password, String phone, String role, String cin, String specialty,
 			User adminUser, boolean active) {
 		this.name = name;
