@@ -17,7 +17,7 @@ import com.springboot.project.gestionFacture.security.JwtUtil;
 import com.springboot.project.gestionFacture.security.MyUserDetailsService;
 import com.springboot.project.gestionFacture.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
 public class AuthRest {
