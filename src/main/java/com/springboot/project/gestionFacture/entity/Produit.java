@@ -27,30 +27,34 @@ public class Produit {
 	private int quantite;
 	@Column(name="reference")
 	private String reference;
+	@Column(name="active")
+	private boolean active;
 	@ManyToOne(cascade = CascadeType.DETACH)
 	private  User user;
 	@Column(name="product_image")
 	private byte[] imageP;
 	public Produit() {
 	}
-	public Produit(int id, String nameP, double prixAchat, double prixVente, int quantite, String reference, User user,
-			byte[] imageP) {
+	public Produit(String nameP, double prixAchat, double prixVente, int quantite, String reference, boolean active,
+			User user, byte[] imageP) {
+		this.nameP = nameP;
+		this.prixAchat = prixAchat;
+		this.prixVente = prixVente;
+		this.quantite = quantite;
+		this.reference = reference;
+		this.active = active;
+		this.user = user;
+		this.imageP = imageP;
+	}
+	public Produit(int id, String nameP, double prixAchat, double prixVente, int quantite, String reference,
+			boolean active, User user, byte[] imageP) {
 		this.id = id;
 		this.nameP = nameP;
 		this.prixAchat = prixAchat;
 		this.prixVente = prixVente;
 		this.quantite = quantite;
 		this.reference = reference;
-		this.user = user;
-		this.imageP = imageP;
-	}
-	public Produit(String nameP, double prixAchat, double prixVente, int quantite, String reference, User user,
-			byte[] imageP) {
-		this.nameP = nameP;
-		this.prixAchat = prixAchat;
-		this.prixVente = prixVente;
-		this.quantite = quantite;
-		this.reference = reference;
+		this.active = active;
 		this.user = user;
 		this.imageP = imageP;
 	}
@@ -89,6 +93,12 @@ public class Produit {
 	}
 	public void setReference(String reference) {
 		this.reference = reference;
+	}
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	public User getUser() {
 		return user;

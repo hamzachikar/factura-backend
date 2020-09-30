@@ -50,12 +50,12 @@ public class SetupDataLoader implements
 		Client client2=new Client("client2","EE5756","Marrackech",400000,"Marrakech","skks5555","2225556630","client2@outlook.fr",adminUser2);
 		client1=this.clientS.save(client1);
 		client2=this.clientS.save(client2);
-		Produit prod1=new Produit("prod1",20.0,25.0,1000,"ejfnes",adminUser1,null);
-		Produit prod2=new Produit("prod2",200.0,280.0,200,"ejfnecxcs",adminUser1,null);
-		Produit prod3=new Produit("prod3",20,30,300,"ejfnescs",adminUser1,null);
-		Produit prod4=new Produit("prod4",20.0,25.0,1000,"ejcsfnes",adminUser2,null);
-		Produit prod5=new Produit("prod5",202.0,230.0,2000,"egfjfnes",adminUser2,null);
-		Produit prod6=new Produit("prod6",25.0,30.0,1000,"ejfnfdges",adminUser2,null);
+		Produit prod1=new Produit("prod1",20.0,25.0,1000,"ejfnes",true, adminUser1,null);
+		Produit prod2=new Produit("prod2",200.0,280.0,200,"ejfnecxcs",true,adminUser1,null);
+		Produit prod3=new Produit("prod3",20,30,300,"ejfnescs",true,adminUser1,null);
+		Produit prod4=new Produit("prod4",20.0,25.0,1000,"ejcsfnes",true,adminUser2,null);
+		Produit prod5=new Produit("prod5",202.0,230.0,2000,"egfjfnes",true,adminUser2,null);
+		Produit prod6=new Produit("prod6",25.0,30.0,1000,"ejfnfdges",true,adminUser2,null);
 		prod1=this.productS.save(prod1);
 		prod2=this.productS.save(prod2);
 		prod3=this.productS.save(prod3);
@@ -86,8 +86,8 @@ public class SetupDataLoader implements
 		Parameter detail2=new Parameter("the company test2", "0524371959", "MARRAKECH","theCompany2@outlook.com",null,null,null,adminUser2);
 		detail1=this.detailS.save(detail1);
 		detail2=this.detailS.save(detail2);
-		Devis devis1=new Devis(new Date(), client1,empUser1,produits1,"155333", 20,false);
-		Devis devis2=new Devis(new Date(), client2,empUser2,produits2,"554896", 20,false);
+		Devis devis1=new Devis(new Date(), client1,empUser1,produits1,"155333", 20,"en attente");
+		Devis devis2=new Devis(new Date(), client2,empUser2,produits2,"554896", 20,"en attente");
 		devis1=this.devisS.save(devis1);
 		devis2=this.devisS.save(devis2);
 	}

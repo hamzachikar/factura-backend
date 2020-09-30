@@ -38,11 +38,11 @@ public class Devis {
 	@Column(name="total_ttc")
 	private double totalTTC;
 	@Column(name="status")
-	private boolean status;
+	private String status;
 	public Devis() {
 	}
 	
-	public Devis(Date createDate, Client client, User user, List<ProductDevis> products, String reference, double tva, boolean status) {
+	public Devis(Date createDate, Client client, User user, List<ProductDevis> products, String reference, double tva, String status) {
 		this.createDate = createDate;
 		this.client = client;
 		this.user = user;
@@ -54,7 +54,7 @@ public class Devis {
 	}
 
 	public Devis(int id, Date createDate, Client client, User user, List<ProductDevis> products, String reference,
-			double tva, boolean status) {
+			double tva, String status) {
 		this.id = id;
 		this.createDate = createDate;
 		this.client = client;
@@ -137,13 +137,13 @@ public class Devis {
 		this.totalTTC = totalTTC;
 	}
 
-	public boolean isStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	
 }
