@@ -7,7 +7,7 @@ import com.springboot.project.gestionFacture.entity.Devis;
 import com.springboot.project.gestionFacture.entity.User;
 
 public interface DevisService {
-	public List<Devis> getDevis();
+	public List<Devis> getAllDevis();
 	public Devis getDevisById(int theId);
 	public List<Devis> getDevisByClient(Client client);
 	public List<Devis> getDevisByUser(User user);

@@ -7,7 +7,7 @@ import com.springboot.project.gestionFacture.entity.Produit;
 
 
 public interface ProduitService {
-	List<Produit> getProduits();
+	List<Produit> getAllProduits();
 	Optional<Produit> getProduitById(int theId);
 	void deleteProduit(int theId);
 	Produit save(Produit produit);

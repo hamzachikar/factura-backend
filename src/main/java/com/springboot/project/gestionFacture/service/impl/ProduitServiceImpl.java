@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.project.gestionFacture.entity.Produit;
 import com.springboot.project.gestionFacture.entity.User;
+import com.springboot.project.gestionFacture.entity.UserAuthS;
 import com.springboot.project.gestionFacture.jparepo.ProduitRepository;
 import com.springboot.project.gestionFacture.security.MyUserDetails;
 import com.springboot.project.gestionFacture.service.ProduitService;
@@ -20,8 +21,15 @@ public class ProduitServiceImpl implements ProduitService{
 	@Autowired
 	private ProduitRepository repo;
 	@Override
-	public List<Produit> getProduits() {
-		return this.setNullUserDataProd(this.repo.findByUser(this.getAdminUser()));
+	public List<Produit> getAllProduits() {
+		List<Produit> products=new ArrayList<Produit>();
+		if(UserAuthS.getAuthUser().getRole().equals("admin")) {
+			products=this.repo.findByUser(UserAuthS.getAuthUser());
+		}
+		else {
+			products=this.repo.findByUser(UserAuthS.getAuthUser().getAdminUser());
+		}
+		return products;
 	}
 
 	@Override
@@ -56,13 +64,5 @@ public class ProduitServiceImpl implements ProduitService{
 			adminUser=((MyUserDetails) auth.getPrincipal()).getUser().getAdminUser();
 		}
 		return adminUser;
-	}
-	private List<Produit> setNullUserDataProd(List<Produit> produits){
-		List<Produit> ps=new ArrayList<Produit>();
-		for(Produit p:produits) {
-			p.setUser(null);
-			ps.add(p);
-		}
-		return ps;
 	}
 }

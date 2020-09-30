@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.springboot.project.gestionFacture.entity.User;
+import com.springboot.project.gestionFacture.entity.UserAuthS;
 import com.springboot.project.gestionFacture.jparepo.UserRepository;
 import com.springboot.project.gestionFacture.security.MyUserDetails;
 import com.springboot.project.gestionFacture.service.UserService;
@@ -25,18 +26,7 @@ public class UserServiceImp implements UserService {
 	@Override
 	@Transactional
 	public List<User> getUsers() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		MyUserDetails userDetails=(MyUserDetails) auth.getPrincipal();
-		List<User> users=userRepository.findAll();
-		List<User> newUsers=new ArrayList<User>();
-		for(User user:users) {
-			if(user.getAdminUser()!=null) {
-				if(user.getAdminUser().getId()==userDetails.getUser().getId()){
-					newUsers.add(user);
-				}
-			}
-		}
-		return newUsers;
+		return userRepository.findByAdminUser(UserAuthS.getAuthUser());
 	}
 
 	

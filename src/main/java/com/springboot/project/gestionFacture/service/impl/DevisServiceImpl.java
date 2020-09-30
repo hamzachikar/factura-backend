@@ -1,17 +1,22 @@
 package com.springboot.project.gestionFacture.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.springboot.project.gestionFacture.entity.Client;
 import com.springboot.project.gestionFacture.entity.Devis;
 import com.springboot.project.gestionFacture.entity.User;
+import com.springboot.project.gestionFacture.entity.UserAuthS;
 import com.springboot.project.gestionFacture.jparepo.DevisRepository;
 import com.springboot.project.gestionFacture.jparepo.ParameterRepository;
 import com.springboot.project.gestionFacture.jparepo.ProduitRepository;
+import com.springboot.project.gestionFacture.security.MyUserDetails;
 import com.springboot.project.gestionFacture.service.ActivityLogService;
 import com.springboot.project.gestionFacture.service.DevisService;
 import com.springboot.project.gestionFacture.service.LoggerService;
@@ -29,9 +34,9 @@ public class DevisServiceImpl implements DevisService{
 	@Autowired
 	private ActivityLogService logS;
 	@Override
-	public List<Devis> getDevis() {
-		this.loggerService.logData("get all devis");
-		return this.repo.findAll();
+	public List<Devis> getAllDevis() {
+		List<Devis> devis=this.repo.findAll();
+		return this.getDevisUser(devis);
 	}
 
 	@Override
@@ -60,5 +65,20 @@ public class DevisServiceImpl implements DevisService{
 	public Devis save(Devis devis) {
 		return this.repo.save(devis);
 	}
-
+	private List<Devis> getDevisUser(List<Devis> devis){
+		List<Devis>dv=new ArrayList<Devis>();
+		for(Devis d:devis) {
+			if(d.getUser().getAdminUser()!=null) {
+				if(d.getUser().getAdminUser().getId()==UserAuthS.getAuthUser().getId()) {
+					dv.add(d);
+				}
+			}
+			else {
+				if(d.getUser().getId()==UserAuthS.getAuthUser().getId()) {
+					dv.add(d);
+				}
+			}
+		}
+		return dv;
+	}
 }

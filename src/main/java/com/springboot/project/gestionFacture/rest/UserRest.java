@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,7 @@ import com.springboot.project.gestionFacture.service.ClientService;
 import com.springboot.project.gestionFacture.service.DevisService;
 import com.springboot.project.gestionFacture.service.ProduitService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/user")
 public class UserRest {
@@ -54,8 +56,8 @@ public class UserRest {
 	//client management part
 	//change this part when adding the auth module
 	@GetMapping("/getAllClients")
-	public List<Client> getClients(@RequestBody User user){
-		return this.clientService.getClientsByUser(user);
+	public List<Client> getClients(){
+		return this.clientService.getClients();
 	}
 	@GetMapping("/getClient/{id}")
 	public Optional<Client> getClient(@PathVariable int id){
@@ -80,7 +82,7 @@ public class UserRest {
 	//change when add the auth module
 	@GetMapping("/getAllDevis")
 	public List <Devis> getDevis() {
-	 	return this.devisService.getDevis();
+	 	return this.devisService.getAllDevis();
 	}
 	
 	@GetMapping("/getDevis/{id}")
@@ -108,7 +110,7 @@ public class UserRest {
 	}
 	@GetMapping("/produits")
 	public List<Produit> getAllProducts(){
-		return this.produitService.getProduits();
+		return this.produitService.getAllProduits();
 	}
 
 	

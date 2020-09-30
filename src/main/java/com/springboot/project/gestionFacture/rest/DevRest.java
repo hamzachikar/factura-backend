@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,7 @@ import com.springboot.project.gestionFacture.entity.Client;
 import com.springboot.project.gestionFacture.entity.User;
 import com.springboot.project.gestionFacture.service.ClientService;
 import com.springboot.project.gestionFacture.service.UserService;
-
+@CrossOrigin(origins="*",allowedHeaders = "*",allowCredentials ="true")
 @RestController
 @RequestMapping("/dev")
 public class DevRest {
@@ -52,9 +53,5 @@ public class DevRest {
 	public List<Client> getClients(){
 		return this.clientService.getClients();
 	}
-	@GetMapping("/getAllClientsByAdminUser")
-	public List<Client> getClientsByUser(@RequestBody User user){
-		return this.clientService.getClientsByUser(user);
-	}
-	
+
 }

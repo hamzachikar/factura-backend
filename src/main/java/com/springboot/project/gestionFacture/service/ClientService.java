@@ -12,5 +12,4 @@ public interface ClientService {
 	Optional<Client> getClient(int theId);
 	void deleteClient(int theId);
 	Client save(Client client);
-	List<Client> getClientsByUser(User user);
 }

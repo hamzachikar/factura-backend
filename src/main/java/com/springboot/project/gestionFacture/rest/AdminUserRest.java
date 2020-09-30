@@ -23,8 +23,7 @@ import com.springboot.project.gestionFacture.service.ActivityLogService;
 import com.springboot.project.gestionFacture.service.ClientService;
 import com.springboot.project.gestionFacture.service.UserService;
 
-@CrossOrigin(origins="*",allowedHeaders = "*",allowCredentials ="true")
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/admin")
 public class AdminUserRest {
