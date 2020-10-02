@@ -16,6 +16,8 @@ import com.springboot.project.gestionFacture.entity.Client;
 import com.springboot.project.gestionFacture.entity.Devis;
 import com.springboot.project.gestionFacture.entity.Produit;
 import com.springboot.project.gestionFacture.entity.User;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -27,7 +29,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.w3c.tidy.Tidy;
@@ -37,6 +41,7 @@ import com.itextpdf.text.DocumentException;
 import com.springboot.project.gestionFacture.service.ClientService;
 import com.springboot.project.gestionFacture.service.DevisService;
 import com.springboot.project.gestionFacture.service.ProduitService;
+import com.springboot.project.gestionFacture.service.UserService;
 
 @CrossOrigin("*")
 @RestController
@@ -46,13 +51,19 @@ public class UserRest {
 	private ClientService clientService;
 	@Autowired
 	private DevisService devisService;
-
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private ProduitService produitService ;
 	
 	@Autowired
     SpringTemplateEngine templateEngine;
 	
+	//profile user
+	@PostMapping("/profile")
+	public User updateProfile(@RequestParam("image") MultipartFile file,@RequestParam("user") String user) throws IOException {
+		return this.userService.updateProfile(this.generateUserJSON(user),file);
+	}
 	//client management part
 	//change this part when adding the auth module
 	@GetMapping("/getAllClients")
@@ -151,5 +162,54 @@ public class UserRest {
         tidy.parseDOM(inputStream, outputStream);
         return outputStream.toString("UTF-8");
     }
-	
+	private User generateUserJSON(String userJSON) {
+		JSONObject obj = new JSONObject(userJSON);
+		User user=new User();
+		System.out.println(obj.get("adminUser").equals(null));
+		if(!(obj.get("adminUser").equals(null))) {
+			JSONObject o=new JSONObject(obj.get("adminUser"));
+			User adminUser=new User(
+					o.getInt("id"),
+					o.getString("name"),
+					o.getString("email"),
+					o.getString("password"),
+					o.getString("phone"),
+					o.getString("role"),
+					o.getString("cin"),
+					o.getString("specialty"),
+					null,
+					null,
+					o.getBoolean("active")
+					);
+			user=new User(
+					obj.getInt("id"),
+					obj.getString("name"),
+					obj.getString("email"),
+					obj.getString("password"),
+					obj.getString("phone"),
+					obj.getString("role"),
+					obj.getString("cin"),
+					obj.getString("specialty"),
+					null,
+					adminUser,
+					obj.getBoolean("active")
+					);
+		}
+		else {
+			user=new User(
+					obj.getInt("id"),
+					obj.getString("name"),
+					obj.getString("email"),
+					obj.getString("password"),
+					obj.getString("phone"),
+					obj.getString("role"),
+					obj.getString("cin"),
+					obj.getString("specialty"),
+					null,
+					null,
+					obj.getBoolean("active")
+					);
+		}
+		return user;
+	}
 }

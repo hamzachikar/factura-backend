@@ -42,12 +42,12 @@ public class SetupDataLoader implements
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4); // Strength set as 16
         String encodedPassword1 = encoder.encode("complexe");
         String encodedPassword2= encoder.encode("test");
-		User adminUser1 =new User("hamza chikar", "chikar.h@outlook.fr",encodedPassword1,"0613335547","admin","EE1111","responsable",null,true);
-		User adminUser2 =new User("amjad babacheikh", "amjad.ab@outlook.fr",encodedPassword1,"0613335547","admin","EE1111","responsable",null,true);
+		User adminUser1 =new User("hamza chikar", "chikar.h@outlook.fr",encodedPassword1,"0613335547","admin","EE1111","responsable",null,null,true);
+		User adminUser2 =new User("amjad babacheikh", "amjad.ab@outlook.fr",encodedPassword1,"0613335547","admin","EE1111","responsable",null,null,true);
 		adminUser1=this.userS.save(adminUser1);
 		adminUser2=this.userS.save(adminUser2);
-		User empUser1=new User("emp1 emp1", "emp1@outlook.fr",encodedPassword2,"0613335547","user","EE1111","employee",adminUser1,true);
-		User empUser2=new User("emp2 emp2", "emp2@outlook.fr",encodedPassword2,"0613335547","user","EE1111","employee",adminUser2,true);
+		User empUser1=new User("emp1 emp1", "emp1@outlook.fr",encodedPassword2,"0613335547","user","EE1111","employee",null,adminUser1,true);
+		User empUser2=new User("emp2 emp2", "emp2@outlook.fr",encodedPassword2,"0613335547","user","EE1111","employee",null,adminUser2,true);
 		empUser1=this.userS.save(empUser1);
 		empUser2=this.userS.save(empUser2);
 		Client client1=new Client("client1","EE5756","Marrackech",400000,"Marrakech","skks5555","2225556630","client1@outlook.fr",adminUser1);

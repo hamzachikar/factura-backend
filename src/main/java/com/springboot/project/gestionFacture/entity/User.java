@@ -30,14 +30,18 @@ public class User {
 	private String cin;
 	@Column(name="specialty")
 	private String specialty;
+	@Column(name="avatar", length = 65000)
+	private byte[] avatar; 
 	@ManyToOne
 	private User adminUser;
 	@Column(name="active")
 	private boolean active;
 	public User() {
 	}
+	
+
 	public User(String name, String email, String password, String phone, String role, String cin, String specialty,
-			User adminUser, boolean active) {
+			byte[] avatar, User adminUser, boolean active) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -45,14 +49,14 @@ public class User {
 		this.role = role;
 		this.cin = cin;
 		this.specialty = specialty;
+		this.avatar = avatar;
 		this.adminUser = adminUser;
 		this.active = active;
 	}
 
 
-
 	public User(int id, String name, String email, String password, String phone, String role, String cin,
-			String specialty, User adminUser, boolean active) {
+			String specialty, byte[] avatar, User adminUser, boolean active) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -61,10 +65,10 @@ public class User {
 		this.role = role;
 		this.cin = cin;
 		this.specialty = specialty;
+		this.avatar = avatar;
 		this.adminUser = adminUser;
 		this.active = active;
 	}
-
 
 
 	public int getId() {
@@ -119,21 +123,20 @@ public class User {
 	public User getAdminUser() {
 		return adminUser;
 	}
-
 	public void setAdminUser(User adminUser) {
 		this.adminUser = adminUser;
 	}
-
-
-
 	public boolean isActive() {
 		return active;
 	}
-
-
-
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public byte[] getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(byte[] avatar) {
+		this.avatar = avatar;
 	}
 	
 	
