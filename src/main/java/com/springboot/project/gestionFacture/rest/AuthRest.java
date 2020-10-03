@@ -17,6 +17,7 @@ import com.springboot.project.gestionFacture.entity.User;
 import com.springboot.project.gestionFacture.security.JwtUtil;
 import com.springboot.project.gestionFacture.security.MyUserDetailsService;
 import com.springboot.project.gestionFacture.service.UserService;
+import com.springboot.project.gestionFacture.service.impl.ImageService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -34,8 +35,9 @@ public class AuthRest {
 	public ResponseEntity<?>createAuthenticationToken(@RequestParam String email, @RequestParam String password)throws Exception{
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email,password));
 		final UserDetails userDetails=userDetailsService.loadUserByUsername(email);
-		final User user=userService.getUserByEmail(email);
+		final User user=ImageService.setAvatarUser(userService.getUserByEmail(email));
 		final String jwt=jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new AuthResponse(user,jwt));
 	}
+	
 }

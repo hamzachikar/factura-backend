@@ -6,7 +6,15 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+import com.springboot.project.gestionFacture.entity.User;
+
 public class ImageService {
+	public static User setAvatarUser(User user) {
+		if(user.getAvatar()!=null) {
+			user.setAvatar(decompressBytes(user.getAvatar()));
+		}
+		return user;
+	}
 	
 	 public static byte[] compressBytes(byte[] data) {
 	        Deflater deflater = new Deflater();
