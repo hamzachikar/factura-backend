@@ -61,7 +61,7 @@ public class UserRest {
 	
 	//profile user
 	@PostMapping("/profile")
-	public User updateProfile(@RequestParam("image") MultipartFile file,@RequestParam("user") String user) throws IOException {
+	public User updateProfile(@RequestParam(value="image", required=false) MultipartFile file,@RequestParam("user") String user) throws IOException {
 		return this.userService.updateProfile(this.generateUserJSON(user),file);
 	}
 	//client management part
@@ -165,51 +165,19 @@ public class UserRest {
 	private User generateUserJSON(String userJSON) {
 		JSONObject obj = new JSONObject(userJSON);
 		User user=new User();
-		System.out.println(obj.get("adminUser").equals(null));
-		if(!(obj.get("adminUser").equals(null))) {
-			JSONObject o=new JSONObject(obj.get("adminUser"));
-			User adminUser=new User(
-					o.getInt("id"),
-					o.getString("name"),
-					o.getString("email"),
-					o.getString("password"),
-					o.getString("phone"),
-					o.getString("role"),
-					o.getString("cin"),
-					o.getString("specialty"),
-					null,
-					null,
-					o.getBoolean("active")
-					);
-			user=new User(
-					obj.getInt("id"),
-					obj.getString("name"),
-					obj.getString("email"),
-					obj.getString("password"),
-					obj.getString("phone"),
-					obj.getString("role"),
-					obj.getString("cin"),
-					obj.getString("specialty"),
-					null,
-					adminUser,
-					obj.getBoolean("active")
-					);
-		}
-		else {
-			user=new User(
-					obj.getInt("id"),
-					obj.getString("name"),
-					obj.getString("email"),
-					obj.getString("password"),
-					obj.getString("phone"),
-					obj.getString("role"),
-					obj.getString("cin"),
-					obj.getString("specialty"),
-					null,
-					null,
-					obj.getBoolean("active")
-					);
-		}
+		user=new User(
+				obj.getInt("id"),
+				obj.getString("name"),
+				obj.getString("email"),
+				obj.getString("password"),
+				obj.getString("phone"),
+				obj.getString("role"),
+				obj.getString("cin"),
+				obj.getString("specialty"),
+				null,
+				null,
+				obj.getBoolean("active")
+				);
 		return user;
 	}
 }

@@ -22,7 +22,7 @@ import com.springboot.project.gestionFacture.service.ProduitService;
 import com.springboot.project.gestionFacture.service.UserService;
 
 
-@Component
+//@Component
 public class SetupDataLoader implements
   ApplicationListener<ContextRefreshedEvent> {
 	@Autowired
