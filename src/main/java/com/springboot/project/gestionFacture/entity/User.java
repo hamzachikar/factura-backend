@@ -30,7 +30,7 @@ public class User {
 	private String cin;
 	@Column(name="specialty")
 	private String specialty;
-	@Column(name="avatar", length = 65000)
+	@Column(name="avatar", length =100000)
 	private byte[] avatar; 
 	@ManyToOne
 	private User adminUser;

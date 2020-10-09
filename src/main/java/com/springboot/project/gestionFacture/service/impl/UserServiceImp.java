@@ -27,15 +27,13 @@ import com.springboot.project.gestionFacture.service.UserService;
 public class UserServiceImp implements UserService {
 	@Autowired
 	private UserRepository userRepository;
-	@Override
-	@Transactional
+	@Override 
 	public List<User> getUsers() {
-		return userRepository.findByAdminUser(UserAuthS.getAuthUser());
+		return ImageService.decompressUserAvatar(userRepository.findByAdminUser(UserAuthS.getAuthUser()));
 	}
 
 	
 	@Override
-	@Transactional
 	public void deleteUser(int theId) {
 		userRepository.deleteById(theId);
 
@@ -44,8 +42,9 @@ public class UserServiceImp implements UserService {
 	@Override
 	@Transactional
 	public User save(User user) {
-		return userRepository.save(user);
-
+		System.out.println(user.getAdminUser().getName());
+		return null;
+		//return userRepository.save(user);
 	}
 
 	@Override

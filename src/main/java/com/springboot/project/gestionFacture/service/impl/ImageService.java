@@ -2,6 +2,8 @@ package com.springboot.project.gestionFacture.service.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
@@ -20,8 +22,9 @@ public class ImageService {
 	        Deflater deflater = new Deflater();
 	        deflater.setInput(data);
 	        deflater.finish();
+	        System.out.println("img initial length:===>"+data.length);
 	        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-	        byte[] buffer = new byte[1024];
+	        byte[] buffer = new byte[500];
 	        while (!deflater.finished()) {
 	            int count = deflater.deflate(buffer);
 	            outputStream.write(buffer, 0, count);
@@ -51,5 +54,13 @@ public class ImageService {
 	        }
 	        return outputStream.toByteArray();
 	    }
-
+	    public static List<User> decompressUserAvatar(List<User> users){
+	    	List<User> fUsers=new ArrayList<User>();
+	    	for(User user:users) {
+	    		System.out.println(user.getAdminUser().getName());
+	    		user.setAvatar(ImageService.decompressBytes(user.getAvatar()));
+	    		fUsers.add(user);
+	    	}
+	    	return fUsers;
+	    }
 }
