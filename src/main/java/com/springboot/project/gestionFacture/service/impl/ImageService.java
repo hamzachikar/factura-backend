@@ -57,8 +57,9 @@ public class ImageService {
 	    public static List<User> decompressUserAvatar(List<User> users){
 	    	List<User> fUsers=new ArrayList<User>();
 	    	for(User user:users) {
-	    		System.out.println(user.getAdminUser().getName());
-	    		user.setAvatar(ImageService.decompressBytes(user.getAvatar()));
+	    		if(user.getAvatar()!=null) {
+					user.setAvatar(ImageService.decompressBytes(user.getAvatar()));
+				}
 	    		fUsers.add(user);
 	    	}
 	    	return fUsers;
