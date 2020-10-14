@@ -6,20 +6,15 @@ import java.util.Date;
 import java.util.List;
 
 import com.springboot.project.gestionFacture.entity.*;
+import com.springboot.project.gestionFacture.jparepo.ActivityLogRepository;
+import com.springboot.project.gestionFacture.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 
 import com.springboot.project.gestionFacture.jparepo.ParameterRepository;
 import com.springboot.project.gestionFacture.jparepo.ProduitRepository;
-import com.springboot.project.gestionFacture.service.ClientService;
-import com.springboot.project.gestionFacture.service.DevisService;
-
-import com.springboot.project.gestionFacture.service.ProductDevisService;
-import com.springboot.project.gestionFacture.service.ProduitService;
-import com.springboot.project.gestionFacture.service.UserService;
 
 
 //@Component
@@ -37,6 +32,8 @@ public class SetupDataLoader implements
 	private ProduitRepository productS;
 	@Autowired
 	private ProductDevisService pDevisS;
+	@Autowired
+	private ActivityLogRepository logRepo;
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4); // Strength set as 16
@@ -90,8 +87,12 @@ public class SetupDataLoader implements
 		Parameter detail2=new Parameter("the company test2", "0524371959", "MARRAKECH","theCompany2@outlook.com",null,null,null,adminUser2);
 		detail1=this.detailS.save(detail1);
 		detail2=this.detailS.save(detail2);
-		Devis devis1=new Devis(new Date(), client1,empUser1,produits1,"155333", 20,"en attente");
-		Devis devis2=new Devis(new Date(), client2,empUser2,produits2,"554896", 20,"en attente");
+		Devis devis1=new Devis(new Date(),null, client1,empUser1,produits1,"155333", 20,"en attente");
+		Devis devis2=new Devis(new Date(),new Date(), client2,empUser2,produits2,"554896", 20,"valide");
+		ActivityLog log1=new ActivityLog(new Date(),empUser1,"save","save test devis ");
+		ActivityLog log2=new ActivityLog(new Date(),empUser2,"save","save test devis ");
+		log1=this.logRepo.save(log1);
+		log2=this.logRepo.save(log2);
 		devis1=this.devisS.save(devis1);
 		devis2=this.devisS.save(devis2);
 	}

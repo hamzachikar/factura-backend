@@ -23,6 +23,8 @@ public class Devis {
 	private int id;
 	@Column(name="create_date")
 	private Date createDate;
+	@Column(name="resolve_date")
+	private Date resolveDate;
 	@ManyToOne(cascade = CascadeType.DETACH)
 	private Client client;
 	@ManyToOne(cascade = CascadeType.DETACH)
@@ -41,8 +43,8 @@ public class Devis {
 	private String status;
 	public Devis() {
 	}
-	
-	public Devis(Date createDate, Client client, User user, List<ProductDevis> products, String reference, double tva, String status) {
+
+	public Devis(Date createDate,Date resolveDate, Client client, User user, List<ProductDevis> products, String reference, double tva, String status) {
 		this.createDate = createDate;
 		this.client = client;
 		this.user = user;
@@ -50,10 +52,11 @@ public class Devis {
 		this.reference = reference;
 		this.tva = tva;
 		this.status = status;
+		this.resolveDate=resolveDate;
 		this.calculateTotals();
 	}
 
-	public Devis(int id, Date createDate, Client client, User user, List<ProductDevis> products, String reference,
+	public Devis(int id, Date createDate,Date resolveDate, Client client, User user, List<ProductDevis> products, String reference,
 			double tva, String status) {
 		this.id = id;
 		this.createDate = createDate;
@@ -63,6 +66,7 @@ public class Devis {
 		this.reference = reference;
 		this.tva = tva;
 		this.status = status;
+		this.resolveDate=resolveDate;
 		this.calculateTotals();
 	}
 
@@ -145,5 +149,11 @@ public class Devis {
 		this.status = status;
 	}
 
-	
+	public Date getResolveDate() {
+		return resolveDate;
+	}
+
+	public void setResolveDate(Date resolveDate) {
+		this.resolveDate = resolveDate;
+	}
 }

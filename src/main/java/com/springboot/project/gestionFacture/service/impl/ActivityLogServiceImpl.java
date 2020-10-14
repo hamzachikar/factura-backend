@@ -1,8 +1,10 @@
 package com.springboot.project.gestionFacture.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.springboot.project.gestionFacture.entity.UserAuthS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,25 @@ public class ActivityLogServiceImpl implements ActivityLogService{
 	
 	@Override
 	public List<ActivityLog> getAllLog() {
-		return this.repo.findAll();
+		List<ActivityLog> activities=this.getLogActLogUser(this.repo.findAll());
+		return activities;
 	}
-
+	private List<ActivityLog> getLogActLogUser(List<ActivityLog> activities){
+		List<ActivityLog> acts=new ArrayList<>();
+		for(ActivityLog act:activities){
+			if(act.getUser().getAdminUser()==null){
+				if(act.getUser().getId()== UserAuthS.getAuthUser().getId()){
+					acts.add(act);
+				}
+			}
+			else{
+				if(act.getUser().getAdminUser().getId()== UserAuthS.getAuthUser().getId()){
+					acts.add(act);
+				}
+			}
+		}
+		return acts;
+	}
 	@Override
 	public List<ActivityLog> getAllLogByUser(User user) {
 		return this.repo.findByUser(user);

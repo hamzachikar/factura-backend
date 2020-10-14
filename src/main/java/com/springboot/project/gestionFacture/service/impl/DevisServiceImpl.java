@@ -23,16 +23,14 @@ import com.springboot.project.gestionFacture.service.LoggerService;
 
 @Service
 public class DevisServiceImpl implements DevisService{
-	@Autowired
-	private LoggerService loggerService;
+
 	@Autowired
 	private DevisRepository repo;
 	@Autowired
 	private ParameterRepository detailS;
 	@Autowired
 	private ProduitRepository produitS;
-	@Autowired
-	private ActivityLogService logS;
+
 	@Override
 	public List<Devis> getAllDevis() {
 		List<Devis> devis=this.repo.findAll();
@@ -42,7 +40,6 @@ public class DevisServiceImpl implements DevisService{
 	@Override
 	public Devis getDevisById(int theId) {
 		Devis devis=this.repo.findById(theId).get();
-		this.loggerService.logData("get devis "+devis.toString());
 		return devis;
 	}
 

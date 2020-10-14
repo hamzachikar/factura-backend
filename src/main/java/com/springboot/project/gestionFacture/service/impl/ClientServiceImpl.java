@@ -50,12 +50,6 @@ public class ClientServiceImpl implements ClientService{
 
 	@Override
 	public Client save(Client client) {
-		if(client.getId()==0) {
-			this.logS.saveLog("save", "save new client");
-		}
-		else {
-			this.logS.saveLog("update", "update client id:"+client.getId());
-		}
 		return repo.save(client);
 	}
 

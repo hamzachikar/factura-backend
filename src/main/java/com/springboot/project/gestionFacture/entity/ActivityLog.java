@@ -35,6 +35,13 @@ public class ActivityLog {
 		this.detail = detail;
 	}
 
+	public ActivityLog(int id, Date date, User user, String action, String detail) {
+		this.id = id;
+		this.date = date;
+		this.user = user;
+		this.action = action;
+		this.detail = detail;
+	}
 
 	public int getId() {
 		return id;
